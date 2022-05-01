@@ -77,6 +77,11 @@ public class frmMain extends javax.swing.JFrame {
                             //aquí es donde debo sacar de mi lista y meterlo donde lo saqué (tomar en cuenta...
                             //que debo obtener el marco del que voy a sacar antes de sacarlo, porque ese marco se le va a agregar
                             // al nuevo que ingrese
+                            Integer marcoAconservar=listaPulsaciones.get(0).getMarco();
+                            p.setMarco(marcoAconservar);
+                            listaPulsaciones.remove(0);
+                            listaPulsaciones.add(p);
+                            dtm.setValueAt(listaPulsaciones.get(4).getValor(), listaPulsaciones.get(4).getMarco(), 1);
                         }
                     }
                     System.out.println("Tamaño "+listaPulsaciones.size());

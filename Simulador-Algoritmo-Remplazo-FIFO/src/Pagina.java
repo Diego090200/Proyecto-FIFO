@@ -16,7 +16,7 @@ public class Pagina {
 
     public Pagina() {
         Random random = new Random();
-        this.valor = random.nextInt(5 + 1) + 1;
+        this.valor = random.nextInt(10 + 1) + 1;
     }
     
     public Integer getMarco() {
