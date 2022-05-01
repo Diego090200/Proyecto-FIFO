@@ -19,6 +19,7 @@ public class frmMain extends javax.swing.JFrame {
     Integer marco=0;
     DefaultTableModel dtm = new DefaultTableModel();
     Pulsacion pul = new Pulsacion();
+    int cont = 0;
     /**
      * Creates new form frmMain
      */
@@ -53,22 +54,28 @@ public class frmMain extends javax.swing.JFrame {
                 if(encendido){
                     Pagina p = new Pagina();
                     p.setMarco(marco);
-                    int marcoAux = marco; 
+                    int marcoAux = marco;
+                    char yes = 'A';
+                    char no = 'F';
                     marco++;
+                    
                     if(marco==5){
                         marco=0;
                     }
+                    
                     boolean siEstaba=false; // primero verifico si estaba en nuestra lista que lleva los marcos
+                    
                     for(Integer i=0; i<listaPulsaciones.size();i++){
                         if(Objects.equals(listaPulsaciones.get(i).getValor(), p.getValor())){
                             siEstaba=true;
                             System.out.println("Si estaba el "+ listaPulsaciones.get(i).getValor() + " En posición " + listaPulsaciones.get(i).getMarco());
-                            marco=marcoAux; //aquí se mandarían los aciertos
+                            marco=marcoAux; //aquí se mandarían los aciertos  
                         }
                         else{
-                            //aquí se mandarías los fallos
+                            //Si tiene fallo   
                         }
                     }
+                    
                     if (siEstaba == false) {
                         if (listaPulsaciones.size() < 5) {
                             listaPulsaciones.add(p); // si todavía hay espacio en mi ram lo meto
@@ -82,15 +89,43 @@ public class frmMain extends javax.swing.JFrame {
                             listaPulsaciones.remove(0);
                             listaPulsaciones.add(p);
                             dtm.setValueAt(listaPulsaciones.get(4).getValor(), listaPulsaciones.get(4).getMarco(), 1);
+                            
                         }
                     }
-                    System.out.println("Tamaño "+listaPulsaciones.size());
+                    
+                    //Validación en tabla si es acierto o Fallo
+                    
+                    if (siEstaba == true){
+                        if(cont <=7){
+                        validacion.setValueAt(yes, 0, cont);
+                        }
+                        else{
+                            eliminar2();
+                            validacion.setValueAt(yes, 0, 0);
+                            cont = 0;
+                        }
+                    }
+                    else if (siEstaba == false){
+                        if(cont <=7){
+                        validacion.setValueAt(no, 0, cont);
+                        }
+                        else{
+                            eliminar2();
+                            validacion.setValueAt(no, 0, 0);
+                            cont = 0;
+                        }
+                    }
+                    cont++;
+                    //System.out.println("llego a esta parte ------------- " + cont);
+                    
+                    //System.out.println("Tamaño "+listaPulsaciones.size());
                     for (Integer i = 0; i < listaPulsaciones.size(); i++) {
                         dtm.setValueAt(listaPulsaciones.get(i).getValor(), listaPulsaciones.get(i).getMarco(), 1);
                     }
+                    
                 }
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(2000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -106,6 +141,16 @@ public class frmMain extends javax.swing.JFrame {
         }
         //cargaTicket();
     }
+    public void eliminar2(){
+        validacion.setValueAt("", 0, 0);
+        validacion.setValueAt("", 0, 1);
+        validacion.setValueAt("", 0, 2);
+        validacion.setValueAt("", 0, 3);
+        validacion.setValueAt("", 0, 4);
+        validacion.setValueAt("", 0, 5);
+        validacion.setValueAt("", 0, 6);
+        validacion.setValueAt("", 0, 7);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,11 +160,28 @@ public class frmMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        validacion = new javax.swing.JTable();
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -157,32 +219,63 @@ public class frmMain extends javax.swing.JFrame {
 
         jLabel1.setText("Estado");
 
+        validacion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "---*---", "---*---", "---*---", "---*---", "---*---", "---*---", "---*---", "---*---"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(validacion);
+        if (validacion.getColumnModel().getColumnCount() > 0) {
+            validacion.getColumnModel().getColumn(0).setResizable(false);
+            validacion.getColumnModel().getColumn(1).setResizable(false);
+            validacion.getColumnModel().getColumn(2).setResizable(false);
+            validacion.getColumnModel().getColumn(3).setResizable(false);
+            validacion.getColumnModel().getColumn(4).setResizable(false);
+            validacion.getColumnModel().getColumn(5).setResizable(false);
+            validacion.getColumnModel().getColumn(6).setResizable(false);
+            validacion.getColumnModel().getColumn(7).setResizable(false);
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addGap(87, 87, 87)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(111, 111, 111))))
+                        .addGap(11, 11, 11)))
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         pack();
@@ -227,7 +320,11 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable validacion;
     // End of variables declaration//GEN-END:variables
 }
