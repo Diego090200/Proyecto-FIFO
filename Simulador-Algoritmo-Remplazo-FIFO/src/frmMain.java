@@ -23,6 +23,7 @@ public class frmMain extends javax.swing.JFrame {
     DefaultTableModel dtm = new DefaultTableModel();
     Pulsacion pul = new Pulsacion();
     int cont=0;
+    int cont2 = 0;
     /**
      * Creates new form frmMain
      */
@@ -63,6 +64,8 @@ public class frmMain extends javax.swing.JFrame {
                     Pagina p = new Pagina();
                     p.setMarco(marco);
                     int marcoAux = marco; 
+                    char yes = 'A';
+                    char no = 'F';
                     marco++;
                     //Agregar a la tabla de referencias
                     switch (cont) {
@@ -116,10 +119,35 @@ public class frmMain extends javax.swing.JFrame {
                             Object valor = listaPulsaciones.get(i).getValor();
                             int colum= cont-2;
                             Referencias.setValueAt(valor, i, cont-1);
+                    }
+                    
+                    if (siEstaba == true){
+                        if(cont2 <=7){
+                        validacion.setValueAt(yes, 0, cont2);
                         }
+                        else{
+                            eliminar2();
+                            validacion.setValueAt(yes, 0, 0);
+                            cont2 = 0;
+                        }
+                    }
+                    else if (siEstaba == false){
+                        if(cont2 <=7){
+                        validacion.setValueAt(no, 0, cont2);
+                        }
+                        else{
+                            eliminar2();
+                            validacion.setValueAt(no, 0, 0);
+                            cont2 = 0;
+                        }
+                    }
+                    
+                    cont2++;
+                    
                     for (Integer i = 0; i < listaPulsaciones.size(); i++) {
                         dtm.setValueAt(listaPulsaciones.get(i).getValor(), listaPulsaciones.get(i).getMarco(), 1);
                     }
+                    
                     /*
                     for(int i=0; i<listaPulsaciones.size(); i++){
                         System.out.println(""+ listaPulsaciones.get(i).getValor());
@@ -148,6 +176,18 @@ public class frmMain extends javax.swing.JFrame {
         }
         //cargaTicket();
     }
+    
+    public void eliminar2(){
+        validacion.setValueAt("", 0, 0);
+        validacion.setValueAt("", 0, 1);
+        validacion.setValueAt("", 0, 2);
+        validacion.setValueAt("", 0, 3);
+        validacion.setValueAt("", 0, 4);
+        validacion.setValueAt("", 0, 5);
+        validacion.setValueAt("", 0, 6);
+        validacion.setValueAt("", 0, 7);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -180,6 +220,8 @@ public class frmMain extends javax.swing.JFrame {
         Titulo7 = new javax.swing.JLabel();
         Titulo8 = new javax.swing.JLabel();
         Titulo5 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        validacion = new javax.swing.JTable();
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -295,6 +337,24 @@ public class frmMain extends javax.swing.JFrame {
         Titulo5.setText("           0");
         Titulo5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        validacion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "---*---", "---*---", "---*---", "---*---", "---*---", "---*---", "---*---", "---*---"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(validacion);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -334,54 +394,57 @@ public class frmMain extends javax.swing.JFrame {
                         .addComponent(Titulo7, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(Titulo8, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(72, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(33, 33, 33)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel5)
-                                            .addGap(0, 0, 0)
-                                            .addComponent(jLabel6)
-                                            .addGap(0, 0, 0)
-                                            .addComponent(jLabel7)
-                                            .addGap(0, 0, 0)
-                                            .addComponent(jLabel9)))
-                                    .addGap(45, 45, 45)
-                                    .addComponent(jLabel1)))
-                            .addGap(116, 116, 116))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(0, 0, 0)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Titulo6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(Titulo1)
-                                    .addComponent(Titulo2)
-                                    .addComponent(Titulo3)
-                                    .addComponent(Titulo4)
-                                    .addComponent(Titulo7)
-                                    .addComponent(Titulo8)
-                                    .addComponent(Titulo5)))
-                            .addGap(247, 247, 247)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(jLabel6)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(jLabel7)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(jLabel9)))
+                                .addGap(45, 45, 45)
+                                .addComponent(jLabel1)))
+                        .addGap(116, 116, 116))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(171, 171, 171))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, 0)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Titulo6)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(Titulo1)
+                                        .addComponent(Titulo2)
+                                        .addComponent(Titulo3)
+                                        .addComponent(Titulo4)
+                                        .addComponent(Titulo7)
+                                        .addComponent(Titulo8)
+                                        .addComponent(Titulo5)))
+                                .addGap(96, 96, 96))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -444,7 +507,9 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
+    private javax.swing.JTable validacion;
     // End of variables declaration//GEN-END:variables
 }
