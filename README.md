@@ -1,9 +1,9 @@
 ![fastell](https://user-images.githubusercontent.com/38775456/166434438-e758dd8f-b741-43af-9584-5e91bdc6bc44.png)
 
-## Bienvenido al repositorio realizado por Fastell 😎😎
+## Bienvenido al repositorio realizado por Fastell 
 
 
-### Proyecto Final Sistemas Operativos 2022 🤯
+### Proyecto Final Sistemas Operativos 2022 
 
 #### Simulación de remplazo de paginas por medio de algoritmo FIFO
 
@@ -33,7 +33,7 @@ Este proceso se repite de forma indefinida, el sistema cuenta con 4 tablas una q
 
 ### Documentación
 
-Se muestra un documento indicando el funcionamiento del programa.
+Se muestra un documento indicando el funcionamiento del programa. [Click aqui](https://drive.google.com/file/d/1Wk3riLMrxUYa0qXmx5678C3goIBV_2UR/view?usp=sharing:// "Click aqui")
 
 #### Colaboradores
 Bryan Bac 😎 [Perfil de GitHub](https://github.com/BryanBac "Perfil de GitHub")
